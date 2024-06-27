@@ -66,10 +66,6 @@
     }
   }
 
-  text-black {
-    color: black !important;
-}
-
   @layer base {
     * {
       @apply border-border;
