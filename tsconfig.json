@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "next.config.js"  ],
+, "next.config.js", "components/ui/carousel.tsx", "components/ui/button.tsx", "components/ui/card.tsx" ],
   "exclude": [
     "node_modules"
   ]

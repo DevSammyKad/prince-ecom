@@ -1,9 +1,9 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import HeroSlider from "../components/ui/HeroSlider";
 
 function Hero() {
-  return (
-    <div>Hero</div>
-  )
+  return <HeroSlider />;
 }
 
-export default Hero
+export default Hero;

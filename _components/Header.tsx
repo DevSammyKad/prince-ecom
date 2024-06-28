@@ -64,7 +64,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search"
-                className="border border-gray-300 text-white rounded-full py-1 pl-8 pr-9 w-48 md:w-auto"
+                className="border border-gray-300 text-white rounded-full py-1 pl-3 pr-9 w-48 md:w-auto"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
