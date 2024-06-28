@@ -1,6 +1,7 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "./Button"; // Assuming Button component is imported correctly
+import { Button } from "@/components/ui/button";
 
 const images = [
   "https://images.unsplash.com/photo-1718481229611-857973320158?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

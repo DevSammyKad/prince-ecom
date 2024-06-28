@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
+import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { MdAccountCircle } from "react-icons/md";
