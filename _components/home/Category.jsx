@@ -53,11 +53,7 @@ const Category = () => {
   ];
 
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-duration="2000"
-      className="py-16 px-4 sm:px-6 lg:px-8 "
-    >
+    <div data-aos="fade-up" className="py-16 px-4 sm:px-6 lg:px-8 ">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-3">
           Explore Our Categories
@@ -69,6 +65,7 @@ const Category = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {categories.map((category) => (
             <motion.div
+              data-aos="fade-up"
               key={category.id}
               className="group"
               whileHover={{ scale: 1.05 }}

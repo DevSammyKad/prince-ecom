@@ -15,7 +15,7 @@ export default function SigninFormDemo() {
   return (
     <>
       <Header navItems={mainNav} isSearch={false} />
-      <div className="max-w-md w-full m-auto mt-5 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
+      <div className="max-w-md w-full m-auto mt-20 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
         <img
           src="Bajaj-Logo.png"
           alt="logo"
@@ -43,8 +43,14 @@ export default function SigninFormDemo() {
             Sign in &rarr;
             <BottomGradient />
           </button>
+          <p className="font-medium text-md mt-3 text-center text-neutral-800">
+            Don't have an account?{" "}
+            <a className="underline" href="/sign-up">
+              Sign Up
+            </a>
+          </p>
 
-          <div className="bg-gradient-to-r from-transparent via-neutral-300 to-transparent my-8 h-[1px] w-full" />
+          <div className="bg-gradient-to-r from-transparent via-neutral-300 to-transparent my-6 h-[1px] w-full" />
 
           <div className="flex flex-col space-y-4">
             <button
