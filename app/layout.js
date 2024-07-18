@@ -5,11 +5,11 @@ import Footer from "@/_components/footer";
 import { AOSInit } from "@/components/ui/aos-init";
 import clsx from "clsx";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "E-Comm",
-  description: "Welcome to shopping application",
+  title: 'E-Comm',
+  description: 'Welcome to shopping application',
 };
 
 export default function RootLayout({ children }) {
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={clsx(inter.className, "max-w-[680px mx-auto w-full]")}>
         <ThemeProvider attribute="class" defaultTheme="light">
-          <AOSInit />
+          {/* <AOSInit /> */}
           {children}
           <Footer />
         </ThemeProvider>
