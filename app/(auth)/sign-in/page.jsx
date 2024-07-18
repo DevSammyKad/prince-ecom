@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import Header from "@/_components/header";
 import { mainNav } from "@/config/nav";
+import { FaHome, FaShoppingCart, FaUser } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
+import signIn from "next-auth/react";
 
 export default function SigninFormDemo() {
   const handleSubmit = (e) => {
@@ -14,7 +17,18 @@ export default function SigninFormDemo() {
   };
   return (
     <>
-      <Header navItems={mainNav} isSearch={false} />
+      <Header
+        navItems={
+          ({ mainNav },
+          [
+            { href: "/", icon: <FaHome /> },
+            { href: "/search", icon: <CiSearch /> },
+            { href: "/cart", icon: <FaShoppingCart /> },
+            { href: "/account", icon: <FaUser /> },
+          ])
+        }
+        isSearch={false}
+      />
       <div className="max-w-md w-full m-auto mt-20 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
         <img
           src="Bajaj-Logo.png"
@@ -39,6 +53,7 @@ export default function SigninFormDemo() {
           <button
             className="bg-gradient-to-br relative group/btn from-black  to-neutral-600 block  w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] "
             type="submit"
+            onClick={() => signIn()}
           >
             Sign in &rarr;
             <BottomGradient />

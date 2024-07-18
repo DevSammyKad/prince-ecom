@@ -85,6 +85,9 @@ const Category = () => {
                   </div>
                 </div>
               </a>
+              <p className="text-gray-900 mt-4 text-center text-md font-semibold">
+                {category.name}
+              </p>
             </motion.div>
           ))}
         </div>

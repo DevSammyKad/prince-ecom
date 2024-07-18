@@ -7,6 +7,9 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import Header from "@/_components/header";
 import { mainNav } from "@/config/nav";
+import Image from "next/image";
+import { FaHome, FaShoppingCart, FaUser } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 
 export default function SignupFormDemo() {
   const handleSubmit = (e) => {
@@ -15,11 +18,23 @@ export default function SignupFormDemo() {
   };
   return (
     <>
-      <Header navItems={mainNav} isSearch={false} />
+      <Header
+        navItems={
+          ({ mainNav },
+          [
+            { href: "/", icon: <FaHome /> },
+            { href: "/search", icon: <CiSearch /> },
+            { href: "/cart", icon: <FaShoppingCart /> },
+            { href: "/account", icon: <FaUser /> },
+          ])
+        }
+        isSearch={false}
+      />
       <div className="max-w-md w-full m-auto mt-20 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
         <img
           src="Bajaj-Logo.png"
           alt="logo"
+          fill={true}
           className="w-20 mx-auto pb-2 justify-center"
         />
         <h2 className="font-bold text-xl text-center text-neutral-800 ">

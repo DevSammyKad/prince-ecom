@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Footer from "@/_components/footer";
 import { AOSInit } from "@/components/ui/aos-init";
-import { ClerkProvider } from "@clerk/nextjs";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +14,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            <AOSInit />
-            {children}
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={clsx(inter.className, "max-w-[680px mx-auto w-full]")}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <AOSInit />
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
