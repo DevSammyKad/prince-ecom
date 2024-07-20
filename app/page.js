@@ -24,7 +24,7 @@ export default function Home() {
       <Product title={"Trending Now"} products={trendingProducts} />
       <Product title={"All Products"} products={products} />
       <DealOfTheDay />
-      <Banner2 />
+      {/* <Banner2 /> */}
       <Brands />
     </div>
   );

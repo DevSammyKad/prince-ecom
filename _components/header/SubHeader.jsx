@@ -113,9 +113,9 @@ const SubHeader = () => {
   ];
 
   return (
-    <nav className="hidden md:block bg-gradient-to-r from-blue-500 to-blue-600 py-1 px-4 md:px-6 shadow-lg">
+    <nav className="hidden md:block bg-blue-500 py-1 px-4 md:px-6 shadow-lg">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="flex items-center bg-gradient-to-r from-red-500 to-red-600 py-1 px-4 rounded-md shadow-md hover:from-red-600 hover:to-red-700 transition-all duration-300">
+        <div className="flex items-center bg-red-500 py-1 px-4 rounded-md shadow-md hover:from-red-600 hover:to-red-700 transition-all duration-300">
           <FaBars className="text-white mr-2" />
           <CategoryDropdown
             category={categories[0].name}

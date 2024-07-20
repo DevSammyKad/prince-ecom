@@ -93,9 +93,16 @@ const Page = () => {
         </div>
         <div className="mt-4 flex flex-col">
           <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
-          <p className="mt-2 text-sm font-medium text-gray-900">
-            {product.price}
-          </p>
+          <div className="space-y-2">
+            <h2 className="text-md font-bold text-gray-900">
+              {product.salePrice}
+              {product.price && (
+                <span className="ml-2 text-xs font-medium text-red-600 line-through">
+                  {product.price}
+                </span>
+              )}
+            </h2>
+          </div>
         </div>
       </motion.div>
     ));

@@ -44,7 +44,7 @@ const Occasion = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-white to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto" data-aos="fade-up">
         <div className="text-center md:-mb-8">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-3">
