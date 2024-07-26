@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   Card,
@@ -19,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { UploadDropzone } from '@/lib/uploadthing';
 
 const ProductCreateRoute = () => {
   return (
@@ -97,6 +100,17 @@ const ProductCreateRoute = () => {
             </div>
           </CardContent>
         </Card>
+        <div className="flex w-full">
+          <UploadDropzone
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              console.log(res, 'Upload completed');
+            }}
+            onUploadError={(err) => {
+              console.log(err, 'Upload error');
+            }}
+          />
+        </div>
       </div>
 
       <Card>

@@ -1,14 +1,16 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
-import { FaBarsStaggered } from "react-icons/fa6";
-import { CiSearch } from "react-icons/ci";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { FaTimes } from 'react-icons/fa';
+import { FaBarsStaggered } from 'react-icons/fa6';
+import { CiSearch } from 'react-icons/ci';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { LoginLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs';
+import { Button } from '@headlessui/react';
 
 const Header = ({ navItems, isSearch }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
@@ -17,13 +19,13 @@ const Header = ({ navItems, isSearch }) => {
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      console.log("Search for:", searchQuery);
+      console.log('Search for:', searchQuery);
       window.location.href = `/search?query=${searchQuery}`;
     }
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleSearch();
     }
   };
@@ -36,9 +38,9 @@ const Header = ({ navItems, isSearch }) => {
         setIsScrolled(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -46,7 +48,7 @@ const Header = ({ navItems, isSearch }) => {
     <div className="font-sans">
       <div
         className={`bg-white text-gray-800 shadow-lg fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-opacity-80 backdrop-blur-sm" : "bg-opacity-100"
+          isScrolled ? 'bg-opacity-80 backdrop-blur-sm' : 'bg-opacity-100'
         }`}
       >
         <div className="container mx-auto flex justify-between items-center py-3 px-6">
@@ -70,6 +72,10 @@ const Header = ({ navItems, isSearch }) => {
                 >
                   <CiSearch size={24} />
                 </button>
+                <Button>
+                  <LoginLink>Sign in</LoginLink>
+                </Button>
+                <RegisterLink>Sign up</RegisterLink>
               </div>
             </div>
           )}
@@ -103,9 +109,9 @@ const Header = ({ navItems, isSearch }) => {
               onClick={toggleMenu}
             />
             <motion.div
-              initial={{ opacity: 0, x: "+100%" }}
-              animate={{ opacity: 1, x: "0%" }}
-              exit={{ opacity: 0, x: "+100%" }}
+              initial={{ opacity: 0, x: '+100%' }}
+              animate={{ opacity: 1, x: '0%' }}
+              exit={{ opacity: 0, x: '+100%' }}
               className="fixed top-0 right-0 bottom-0 w-64 bg-white z-50 p-6 shadow-2xl"
             >
               <div className="flex justify-end mb-6">

@@ -13,8 +13,17 @@ import {
 import { Button } from '@/components/ui/button';
 import { Menu, Search, UserCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { redirect } from 'next/navigation';
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
-const DashboardLayout = ({ children }) => {
+export default async function DashboardLayout({ children }) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || user.email !== 'princeglow.india@gmail.com') {
+    return redirect('/');
+  }
   return (
     <div className="flex w-full flex-col max-w-7xl mx-auto px-4 sm:px-6 lg-px-8">
       <header className="sticky top-0 flex bg-white mb-5 z-10 h-16 items-center justify-between gap-4 border-b">
@@ -64,12 +73,13 @@ const DashboardLayout = ({ children }) => {
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
             <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <LogoutLink>Logout</LogoutLink>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
       {children}
     </div>
   );
-};
-
-export default DashboardLayout;
+}

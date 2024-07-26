@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,250 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id @default(uuid())
+  email             String              @unique
+  name              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  emailVerified     Boolean             @default(false)
+  locale            String              @default("en-IND")
+  password          String
+  picture           String?
+  twoFactorEnabled  Boolean             @default(false)
+  clerkId           String?             @unique
+  Address           Address?
+  Affiliate         Affiliate?
+  Cart              Cart?
+  Order             Order[]
+  Review            Review?
+  Secrets           Secrets?
+  VerificationToken VerificationToken[]
+  Wishlist          Wishlist?
+}
+
+
+
+model Address {
+  id        String   @id
+  userId    String   @unique
+  street    String
+  city      String
+  state     String
+  country   String
+  zipCode   String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+  Order     Order[]
+}
+
+model Affiliate {
+  id                String              @id
+  userId            String              @unique
+  referralCode      String              @unique
+  commissionRate    Float               @default(0.05)
+  totalCommission   Float               @default(0.0)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now())
+  User              User                @relation(fields: [userId], references: [id])
+  AffiliatePayment  AffiliatePayment[]
+  AffiliateReferral AffiliateReferral[]
+  Order             Order[]
+}
+
+model AffiliatePayment {
+  id            String        @id
+  affiliateId   String
+  amount        Float
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentDate   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+  Affiliate     Affiliate     @relation(fields: [affiliateId], references: [id])
+}
+
+model AffiliateReferral {
+  id          String    @id
+  affiliateId String
+  orderId     String
+  commission  Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  Affiliate   Affiliate @relation(fields: [affiliateId], references: [id])
+  Order       Order     @relation(fields: [orderId], references: [id])
+}
+
+model Attribute {
+  id        String   @id
+  name      String
+  value     String
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Cart {
+  id        String     @id
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  User      User       @relation(fields: [userId], references: [id])
+  CartItem  CartItem[]
+}
+
+model CartItem {
+  id        String   @id
+  cartId    String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Cart      Cart     @relation(fields: [cartId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id        String    @id
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Product   Product[]
+}
+
+model Image {
+  id        String   @id
+  url       String
+  altText   String?
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id                String              @id
+  userId            String
+  totalPrice        Float
+  status            OrderStatus         @default(PENDING)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now())
+  addressId         String
+  trackingNumber    String?
+  paymentStatus     PaymentStatus       @default(PENDING)
+  affiliateId       String?
+  AffiliateReferral AffiliateReferral[]
+  Address           Address             @relation(fields: [addressId], references: [id])
+  Affiliate         Affiliate?          @relation(fields: [affiliateId], references: [id])
+  User              User                @relation(fields: [userId], references: [id])
+  OrderItem         OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  discount  Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Order     Order    @relation(fields: [orderId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          String      @id
+  name        String
+  description String
+  price       Float
+  stock       Int
+  sku         String      @unique
+  weight      Float?
+  dimensions  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
+  categoryId  String
+  Attribute   Attribute[]
+  CartItem    CartItem[]
+  Image       Image[]
+  OrderItem   OrderItem[]
+  Category    Category    @relation(fields: [categoryId], references: [id])
+  Review      Review[]
+  Tag         Tag[]
+  Wishlist    Wishlist[]
+}
+
+model Review {
+  id        String   @id
+  rating    Int
+  comment   String?
+  userId    String   @unique
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model Secrets {
+  id                   String   @id
+  password             String?
+  lastSignedIn         DateTime @default(now())
+  verificationToken    String?
+  twoFactorSecret      String?
+  twoFactorBackupCodes String[] @default([])
+  refreshToken         String?
+  resetToken           String?  @unique
+  userId               String   @unique
+  User                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, id])
+}
+
+model Tag {
+  id        String    @id
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Product   Product[]
+}
+
+model VerificationToken {
+  id        String   @id
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userId    String
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model Wishlist {
+  id        String    @id
+  userId    String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  User      User      @relation(fields: [userId], references: [id])
+  Product   Product[]
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }

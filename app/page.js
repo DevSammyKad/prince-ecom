@@ -1,16 +1,22 @@
-import Brands from "@/_components/home/Brands";
-import Banner from "@/_components/home/Banner";
-import Occasion from "@/_components/home/Occasion";
-import Category from "@/_components/home/Category";
-import Product from "@/_components/home/Product";
-import DealOfTheDay from "@/_components/home/DealOfTheDay";
-import Header from "@/_components/header";
-import { mainNav } from "@/config/nav";
+import Brands from '@/_components/home/Brands';
+import Banner from '@/_components/home/Banner';
+import Occasion from '@/_components/home/Occasion';
+import Category from '@/_components/home/Category';
+import Product from '@/_components/home/Product';
+import DealOfTheDay from '@/_components/home/DealOfTheDay';
+import Header from '@/_components/header';
+import { mainNav } from '@/config/nav';
+import {
+  RegisterLink,
+  LoginLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
     <div>
       <Header navItems={mainNav} isSearch={true} />
+
       <Banner />
       <Category />
       <Brands />
