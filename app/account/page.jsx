@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { User, Package, Heart, Home, CreditCard, Menu, X } from "lucide-react";
 import { mainNav } from "@/config/nav";
 import Header from "@/_components/header";
-import { useUser } from "@clerk/nextjs";
 import { AccountSection } from "./tabs/AccountsSection";
 import { OrdersSection } from "./tabs/OrdersSection";
 import { WishlistSection } from "./tabs/WishlistSection";
