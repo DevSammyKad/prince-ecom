@@ -1,16 +1,16 @@
-"use client";
-import Brands from "@/_components/home/Brands";
-import Banner from "@/_components/home/Banner";
-import Occasion from "@/_components/home/Occasion";
-import Category from "@/_components/home/Category";
-import Product from "@/_components/home/Product";
-import DealOfTheDay from "@/_components/home/DealOfTheDay";
-import Header from "@/_components/header";
-import { mainNav, items } from "@/config/nav";
-import { products } from "@/config/dummyData";
-import Banner2 from "@/_components/home/Banner2";
-import StickyHeader from "@/_components/header/StickyHeader";
-import SubHeader from "@/_components/header/SubHeader";
+import Brands from '@/_components/home/Brands';
+import Banner from '@/_components/home/Banner';
+import Occasion from '@/_components/home/Occasion';
+import Category from '@/_components/home/Category';
+import Product from '@/_components/home/Product';
+import DealOfTheDay from '@/_components/home/DealOfTheDay';
+import Header from '@/_components/header';
+import { mainNav } from '@/config/nav';
+import {
+  RegisterLink,
+  LoginLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const kidsProducts = products.filter((product) => {
@@ -21,7 +21,7 @@ export default function Home() {
     <div>
       {/* <StickyHeader /> */}
       <Header navItems={mainNav} isSearch={true} />
-      {/* <SubHeader /> */}
+
       <Banner />
       <Category />
       <Occasion />

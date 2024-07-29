@@ -10,12 +10,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={clsx(inter.className, "max-w-[680px mx-auto w-full]")}>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <AOSInit />
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </ThemeProvider>
       </body>
     </html>
