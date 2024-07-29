@@ -1,19 +1,19 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 import {
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
-} from "@tabler/icons-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+} from '@tabler/icons-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 export default function SignupFormDemo() {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log('Form submitted');
   };
   return (
     <div className="max-w-md w-full m-auto mt-5 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
@@ -85,7 +85,7 @@ const BottomGradient = () => {
 
 const LabelInputContainer = ({ children, className }) => {
   return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
+    <div className={cn('flex flex-col space-y-2 w-full', className)}>
       {children}
     </div>
   );

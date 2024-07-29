@@ -1,41 +1,46 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/dist/types/server';
+import prisma from '@/lib/db';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { NextResponse } from 'next/server';
 
-export default async function GET() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+export async function GET(req, res) {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
 
-  if (!user || user === null || !user.id) {
-    throw new Error('Something went wrong on Creation');
-  }
+    if (!user || user === null || !user.id) {
+      console.error('User not found or missing ID');
+      return new NextResponse('User not found', { status: 404 });
+    }
 
-  const dbUser = await db.user.findUnique({
-    where: {
-      id: user.id,
-    },
-  });
+    console.log('Retrieved user:', user);
 
-  if (dbUser) {
-    return {
-      status: 200,
-      body: {
-        message: 'User already exists',
+    let dbUser = await prisma.user.findUnique({
+      where: {
+        id: user.id,
       },
-    };
+    });
+
+    console.log('Database user:', dbUser);
+
+    if (!dbUser) {
+      dbUser = await prisma.user.create({
+        data: {
+          id: user.id,
+          firstName: user.given_name ?? '',
+          lastName: user.family_name ?? '',
+          email: user.email ?? '',
+          profileImage:
+            user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
+        },
+      });
+
+      console.log('Created new user:', dbUser);
+    }
+
+    // return new NextResponse(JSON.stringify(dbUser), { status: 200 });
+    return NextResponse.redirect('http://localhost:3000');
+  } catch (error) {
+    console.error('Error during GET:', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
-
-  await db.user.create({
-    data: {
-      id: user.id,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-    },
-  });
-
-  return {
-    status: 200,
-    body: {
-      message: 'User created successfully',
-    },
-  };
 }

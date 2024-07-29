@@ -22,8 +22,10 @@ export default async function DashboardLayout({ children }) {
   const user = await getUser();
 
   if (!user || user.email !== 'princeglow.india@gmail.com') {
+    console.log('You are not authorized to access this page');
     return redirect('/');
   }
+
   return (
     <div className="flex w-full flex-col max-w-7xl mx-auto px-4 sm:px-6 lg-px-8">
       <header className="sticky top-0 flex bg-white mb-5 z-10 h-16 items-center justify-between gap-4 border-b">
@@ -67,7 +69,9 @@ export default async function DashboardLayout({ children }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>
+              {user.family_name || 'My Account'}
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
