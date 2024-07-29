@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import {
   FaHeart,
   FaStar,
@@ -12,6 +12,10 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { products } from "@/config/dummyData";
+import { mainNav } from "@/config/nav";
+import Header from "@/_components/header";
+import dynamic from "next/dynamic";
+import SearchParamsWrapper from "./SearchParamsWrapper";
 
 const Page = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -70,8 +74,6 @@ const Page = () => {
     indexOfLastProduct
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const renderProductCards = () => {
     return currentProducts.map((product) => (
       <motion.div
@@ -84,16 +86,23 @@ const Page = () => {
       >
         <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
           <img
-            src={product.imageSrc}
+            src={product.imageSrc[0]}
             alt={product.imageAlt}
             className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300"
           />
         </div>
         <div className="mt-4 flex flex-col">
           <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
-          <p className="mt-2 text-sm font-medium text-gray-900">
-            {product.price}
-          </p>
+          <div className="space-y-2">
+            <h2 className="text-md font-bold text-gray-900">
+              {product.price}
+              {product.price && (
+                <span className="ml-2 text-xs font-medium text-red-600 line-through">
+                  {product.salePrice}
+                </span>
+              )}
+            </h2>
+          </div>
         </div>
       </motion.div>
     ));
@@ -131,7 +140,7 @@ const Page = () => {
     );
   };
 
-  const renderBreadcrumbs = () => (
+  const renderBreadcrumbs = (collection) => (
     <nav className="text-sm font-medium text-gray-500 mb-4">
       <ol className="list-none p-0 inline-flex">
         <li className="flex items-center">
@@ -155,66 +164,79 @@ const Page = () => {
     </nav>
   );
 
-  const searchParams = useSearchParams();
-  const collection = searchParams.get("collection");
+  const SearchParamsWrapper = dynamic(() => import("./SearchParamsWrapper"), {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  });
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        {renderBreadcrumbs()}
-        <div className="flex flex-col sm:flex-row items-baseline bg-cover bg-[url('https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?size=626&ext=jpg')] rounded-md justify-between border-b border-gray-200 pb-6">
-          <h1 className="text-3xl sm:text-4xl p-2 font-bold tracking-tight text-gray-900 mb-4 sm:mb-0">
-            {collection ? collection : "All Products"}
-          </h1>
-        </div>
+    <>
+      <Header navItems={mainNav} isSearch={true} />
+      <div className="bg-gray-50 mt-12 md:mt-20 min-h-screen">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+          <Suspense fallback={<div>Loading...</div>}>
+            <SearchParamsWrapper>
+              {({ collection }) => (
+                <>
+                  {renderBreadcrumbs(collection)}
+                  <div className="flex flex-col sm:flex-row items-baseline bg-cover bg-[url('https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?size=626&ext=jpg')] rounded-md justify-between border-b border-gray-200 pb-6">
+                    <h1 className="text-3xl sm:text-4xl p-2 font-bold tracking-tight text-gray-900 mb-4 sm:mb-0">
+                      {collection ? collection : "All Products"}
+                    </h1>
+                  </div>
 
-        <div className="mt-2">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-white p-2 rounded-lg shadow-md"
-          >
-            <div className="relative inline-block text-left w-full sm:w-auto">
-              <div className="flex items-center space-x-2">
-                <FaSort className="text-gray-400" />
-                <select
-                  className="block w-full pr-6 py-1 text-base bg-white border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                  value={sortBy}
-                  onChange={handleSortChange}
-                >
-                  <option value="name">Sort by Name</option>
-                  <option value="price">Sort by Price</option>
-                  <option value="category">Sort by Category</option>
-                </select>
-              </div>
-            </div>
+                  <div className="mt-2">
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-white p-2 rounded-lg shadow-md"
+                    >
+                      <div className="relative inline-block text-left w-full sm:w-auto">
+                        <div className="flex items-center space-x-2">
+                          <FaSort className="text-gray-400" />
+                          <select
+                            className="block w-full pr-6 py-1 text-base bg-white border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            value={sortBy}
+                            onChange={handleSortChange}
+                          >
+                            <option value="name">Sort by Name</option>
+                            <option value="price">Sort by Price</option>
+                            <option value="category">Sort by Category</option>
+                          </select>
+                        </div>
+                      </div>
 
-            <div className="relative inline-block text-left w-full sm:w-auto">
-              <div className="flex items-center space-x-2">
-                <FaFilter className="text-gray-400" />
-                <select
-                  id="category"
-                  name="category"
-                  className="block w-full pl-3 pr-10 py-2 text-base bg-white border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                  value={filter}
-                  onChange={handleFilterChange}
-                >
-                  <option value="">All Categories</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Stationery">Stationery</option>
-                </select>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {renderProductCards()}
-        </div>
+                      <div className="relative inline-block text-left w-full sm:w-auto">
+                        <div className="flex items-center space-x-2">
+                          <FaFilter className="text-gray-400" />
+                          <select
+                            id="category"
+                            name="category"
+                            className="block w-full pl-3 pr-10 py-2 text-base bg-white border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            value={filter}
+                            onChange={handleFilterChange}
+                          >
+                            <option value="">All Categories</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Stationery">Stationery</option>
+                          </select>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                  <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                    {renderProductCards()}
+                  </div>
 
-        {renderPagination()}
+                  {renderPagination()}
+                </>
+              )}
+            </SearchParamsWrapper>
+          </Suspense>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
