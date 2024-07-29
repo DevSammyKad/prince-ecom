@@ -3,24 +3,23 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id                 String              @id @default(cuid())
   name               String
   picture            String?
-  username           String              @unique
   email              String              @unique
+  clerkId            String?             @unique
   password           String
+  phoneNumber        String?             @unique
   locale             String              @default("en-IND")
   emailVerified      Boolean             @default(false)
   twoFactorEnabled   Boolean             @default(false)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
-  provider           Provider
   secrets            Secrets?
   addresses          Address[]
   orders             Order[]
@@ -251,9 +250,4 @@ enum OrderStatus {
   SHIPPED
   DELIVERED
   CANCELLED
-}
-
-enum Provider {
-  GOOGLE
-  ROZARPAY
 }

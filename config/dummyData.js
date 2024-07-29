@@ -7,10 +7,14 @@ export const products = [
     description: "A beautiful, handcrafted earthen bottle for your beverages.",
     rating: 4.5,
     features: ["Handmade", "Eco-friendly", "Durable"],
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
+    imageSrc: [
+      "https://mitticool.com/wp-content/uploads/2018/11/Earthen-Clay-Water-Bottle-1-ltr.jpg",
+      "https://mitticool.com/wp-content/uploads/2019/06/Earthen-Clay-Water-Bottle-600-ml-1.jpg",
+      "https://mitticool.com/wp-content/uploads/2021/02/Earthen-Clay-Warli-Drum-Water-bottle-1ltr.jpg",
+      "https://mitticool.com/wp-content/uploads/2021/02/Earthen-Clay-Black-Spade-Water-bottle-400ml.jpg",
+      "https://villagedecor.in/cdn/shop/files/5thFea_2b3a7203-fc8d-40af-90ff-1a7f11fba704.jpg?v=1711960826&width=1445",
+    ],
+    imageAlt: "Earthen bottle",
     isTrending: false,
     category: [{ name: "kids" }, { name: "household" }],
     stock: 100,
@@ -44,8 +48,11 @@ export const products = [
     description: "A versatile tumbler for your everyday hydration needs.",
     rating: 4.0,
     features: ["Insulated", "BPA-free", "Dishwasher safe"],
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
+    imageSrc: [
+      "https://www.nespresso.com/ecom/medias/sys_master/public/31903623315486/nomad-tumbler-summer24.png",
+      "https://sa.buynespresso.com/media/catalog/product/n/o/nomad_tumbler_-_empty_1.png?optimize=high&fit=bounds&height=500&width=500&canvas=500:500",
+      "https://img.ws.mms.shopee.sg/sg-11134207-7rcc2-lrbe34rkmnznbb",
+    ],
     imageAlt:
       "Olive drab green insulated bottle with flared screw lid and flat top.",
     isTrending: true,
@@ -81,8 +88,11 @@ export const products = [
     description: "A refill pack for your productivity-focused notebooks.",
     rating: 4.5,
     features: ["High-quality paper", "Fits most planners", "Eco-friendly"],
-    imageSrc:
+    imageSrc: [
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
+      "https://m.media-amazon.com/images/I/71mdtup3A1L.jpg",
+      "https://m.media-amazon.com/images/I/61I9J66J0SL.jpg",
+    ],
     imageAlt:
       "Person using a pen to cross a task off a productivity paper card.",
     isTrending: false,
@@ -112,14 +122,17 @@ export const products = [
   },
   {
     id: 4,
-    name: "Machined Pencil",
+    name: "Mechanical Pencil",
     href: "#",
     price: "₹450",
     description: "A precision-engineered mechanical pencil for professionals.",
     rating: 4.8,
     features: ["Durable", "Ergonomic", "Refillable"],
-    imageSrc:
+    imageSrc: [
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
+      "https://m.media-amazon.com/images/I/61nt0S1eZIL._AC_UF1000,1000_QL80_.jpg",
+      "https://m.media-amazon.com/images/I/51OU3AaDhgL._AC_UF1000,1000_QL80_.jpg",
+    ],
     imageAlt:
       "Hand holding black machined steel mechanical pencil with brass tip and top.",
     isTrending: false,
@@ -129,7 +142,7 @@ export const products = [
     weight: "50g",
     dimensions: { length: "15cm", width: "0.8cm", height: "0.8cm" },
     material: "Steel",
-    colors: ["Black"],
+    colors: ["black", "Silver", "Gold"],
     size: ["Standard"],
     reviews: [
       {
@@ -155,8 +168,11 @@ export const products = [
     description: "Soap container box for travel purpose.",
     rating: 4.5,
     features: ["Eco-friendly", "Durable"],
-    imageSrc:
+    imageSrc: [
       "https://m.media-amazon.com/images/I/519mTmvllML._AC_UF1000,1000_QL80_.jpg",
+      "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/41cec593ff26ebb55f714a393538bd97.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp",
+      "https://ae01.alicdn.com/kf/S8e903b22535c45edba3b9b0c355d8788C/Plastic-Travel-Soap-Box-Dish-Plate-Case-Case-Holder-Container-Wash-Shower-Home-Shower-Bathroom-Sealed.jpg",
+    ],
     imageAlt: "Soap container box",
     isTrending: true,
     category: [{ name: "household" }],
@@ -191,7 +207,11 @@ export const products = [
     description: "Waterproof mobile cover pouch for your mobile phone.",
     rating: 4.0,
     features: ["Waterproof", "Durable"],
-    imageSrc: "https://gadgetspro.in/wp-content/uploads/2022/08/yry.jpg",
+    imageSrc: [
+      "https://gadgetspro.in/wp-content/uploads/2022/08/yry.jpg",
+      "https://www.creativehousehold.in/wp-content/uploads/2021/08/WhatsApp-Image-2021-08-02-at-11.49.12-600x600.jpg?v=1627908555",
+      "https://contents.mediadecathlon.com/p2542648/0f8c2090d5f9fde76e6c9b019fc5d897/p2542648.jpg",
+    ],
     imageAlt: "Waterproof mobile cover pouch.",
     isTrending: true,
     category: [{ name: "household" }],
@@ -227,8 +247,11 @@ export const products = [
       "Transparent food storage container for organizing your kitchen.",
     rating: 4.5,
     features: ["Leak-proof", "Durable", "BPA-free"],
-    imageSrc:
+    imageSrc: [
       "https://www.jiomart.com/images/product/original/rvzc5xas1s/home-pro-food-storage-container-transparent-container-capacity-300-ml-800ml-leak-proof-food-safe-freezer-safe-set-of-2-product-images-orvzc5xas1s-p602135042-0-202310011727.png?im=Resize=(420,420)",
+      "https://m.media-amazon.com/images/I/51mj2GRagsL._AC_UF350,350_QL80_.jpg",
+      "https://5.imimg.com/data5/SELLER/Default/2022/12/YK/BF/MG/114711547/a7e66acb-8c50-41e8-845d-6f690e96c4a4-cr22-0-1455-900-pt0-sx970-v1--250x250.jpg",
+    ],
     imageAlt: "Transparent food storage container.",
     isTrending: false,
     category: [{ name: "household" }],
@@ -263,8 +286,11 @@ export const products = [
     description: "Colorful sticky notes for all your reminders and notes.",
     rating: 4.8,
     features: ["Bright colors", "Sticky", "Durable"],
-    imageSrc:
+    imageSrc: [
       "https://5.imimg.com/data5/SELLER/Default/2024/5/417868016/JA/FK/NN/51081104/bja11402-2.jpg",
+      "https://m.media-amazon.com/images/I/51eDYt8GhAL._AC_UF1000,1000_QL80_.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFX08s7QwIrAobM7_OuNN2h1GFh9GCFJKFaA&s",
+    ],
     imageAlt: "Colorful sticky notes.",
     isTrending: true,
     category: [{ name: "stationery" }],
@@ -312,4 +338,70 @@ export const occasion = [
       "https://images.unsplash.com/photo-1619727875848-64f3b23a4de4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2UlMjBnaWZ0fGVufDB8fDB8fHww",
     link: "/products?collection=Occasions&occasion=housewarming",
   },
+];
+
+export const faqData = [
+  {
+    question: "How can I track my order?",
+    answer:
+      'To track your order, log into your account on our website and go to the "Orders" section. Here, you can view the current status of your order, including shipping updates and delivery estimates. You will also receive email notifications with tracking information once your order is shipped.',
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept various payment methods to make your shopping experience convenient. These include major credit and debit cards, Rozarpay, Phonepe & Google Pay.",
+  },
+  {
+    question: "How can I return a product?",
+    answer:
+      "If you need to return a product, please contact our customer support team through our website or email us at prince@gmail.com. Provide your order number and the reason for the return. Our team will guide you through the return process and provide you with a return shipping label if applicable. Returns are subject to our return policy, which can be found on our website.",
+  },
+  {
+    question: "Do you offer international shipping?",
+    answer: "Not right now! But we are working on it.",
+  },
+  {
+    question: "What is your policy on refunds and exchanges?",
+    answer:
+      "Our refund and exchange policy allows you to request a refund or exchange within a specified period (e.g., 30 days) from the date of purchase. To be eligible, items must be returned in their original condition with all tags and packaging. Refunds are processed to the original payment method, and exchanges are subject to product availability.",
+  },
+  {
+    question: "How can I contact customer support?",
+    answer:
+      "You can reach our customer support team via email at prince@gmail.com, phone at (123) 456-7890. Our team is available to assist you with any questions or concerns you may have.",
+  },
+  {
+    question: "Do you offer gift cards?",
+    answer:
+      "Yes, we offer gift cards in various denominations. Gift cards can be purchased on our website and can be used towards any purchase. They are a great option for gifts and can be redeemed at checkout.",
+  },
+  {
+    question: "How do I update my account information?",
+    answer:
+      "To update your account information, log in to your account on our website and go to the 'Account Settings' section. From there, you can update your personal details, address, payment methods, and other preferences.",
+  },
+];
+
+export const formFields = [
+  { label: "Customer Name", type: "text", required: true },
+  { label: "Contact Number", type: "text", required: true },
+  { label: "Customer email ID", type: "email", required: true },
+  { label: "Customer Full Address", type: "text", required: true },
+  {
+    label: "Type",
+    type: "select",
+    required: true,
+    options: [
+      { value: "query", label: "Query" },
+      { value: "complaint", label: "Complaint" },
+      { value: "feedback", label: "Feedback" },
+    ],
+  },
+  { label: "Product Details", type: "text", required: true },
+  {
+    label: "Upload Clear Invoice Photo & Product Images",
+    type: "file",
+    required: true,
+  },
+  { label: "Description", type: "textarea", required: true },
 ];

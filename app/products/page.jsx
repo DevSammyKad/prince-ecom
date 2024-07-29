@@ -86,7 +86,7 @@ const Page = () => {
       >
         <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
           <img
-            src={product.imageSrc}
+            src={product.imageSrc[0]}
             alt={product.imageAlt}
             className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300"
           />
@@ -95,10 +95,10 @@ const Page = () => {
           <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
           <div className="space-y-2">
             <h2 className="text-md font-bold text-gray-900">
-              {product.salePrice}
+              {product.price}
               {product.price && (
                 <span className="ml-2 text-xs font-medium text-red-600 line-through">
-                  {product.price}
+                  {product.salePrice}
                 </span>
               )}
             </h2>

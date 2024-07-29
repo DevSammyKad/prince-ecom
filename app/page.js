@@ -1,3 +1,4 @@
+"use client";
 import Brands from "@/_components/home/Brands";
 import Banner from "@/_components/home/Banner";
 import Occasion from "@/_components/home/Occasion";
@@ -8,6 +9,8 @@ import Header from "@/_components/header";
 import { mainNav, items } from "@/config/nav";
 import { products } from "@/config/dummyData";
 import Banner2 from "@/_components/home/Banner2";
+import StickyHeader from "@/_components/header/StickyHeader";
+import SubHeader from "@/_components/header/SubHeader";
 
 export default function Home() {
   const kidsProducts = products.filter((product) => {
@@ -16,7 +19,9 @@ export default function Home() {
   const trendingProducts = products.filter((product) => product.isTrending);
   return (
     <div>
+      {/* <StickyHeader /> */}
       <Header navItems={mainNav} isSearch={true} />
+      {/* <SubHeader /> */}
       <Banner />
       <Category />
       <Occasion />

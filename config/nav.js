@@ -1,6 +1,8 @@
 import { LuShoppingCart } from "react-icons/lu";
-import { MdAccountCircle } from "react-icons/md";
 import { BiBookmarkHeart } from "react-icons/bi";
+import { FaHome, FaShoppingCart, FaUser } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
+import { BsBox } from "react-icons/bs";
 
 export const mainNav = [
   {
@@ -14,10 +16,17 @@ export const mainNav = [
     icon: <LuShoppingCart size={28} className="hidden md:block" />,
   },
   {
-    title: "sign in",
+    title: "account",
     href: "/account",
-    icon: <MdAccountCircle size={28} className="hidden md:block" />,
+    icon: <FaUser size={28} className="hidden md:block" />,
   },
+];
+
+export const mobileNavItems = [
+  { id: "home", icon: FaHome, label: "Home" },
+  { id: "search", icon: CiSearch, label: "Search" },
+  { id: "products", icon: BsBox, label: "Product" },
+  { id: "cart", icon: FaShoppingCart, label: "Cart" },
 ];
 
 export const items = [

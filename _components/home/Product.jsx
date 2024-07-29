@@ -105,7 +105,7 @@ const Page = ({ title, products }) => {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <img
-            src={product.imageSrc}
+            src={product.imageSrc[0]}
             alt={product.imageAlt}
             className="h-36 sm:h-auto w-full object-cover object-center cursor-pointer"
             onClick={() => handleProductClick(product.id)}
@@ -115,9 +115,16 @@ const Page = ({ title, products }) => {
           <h3 className="text-xs sm:text-sm font-semibold text-gray-800 mb-1 truncate">
             {product.name}
           </h3>
-          <p className="text-sm sm:text-base font-bold text-indigo-600">
+
+          <h2 className="text-md font-bold text-gray-900">
             {product.price}
-          </p>
+            {product.price && (
+              <span className="ml-2 text-xs font-medium text-red-600 line-through">
+                {product.salePrice}
+              </span>
+            )}
+          </h2>
+
           <Button
             onClick={() => handleProductClick(product.id)}
             className="mt-2 w-full text-xs bg-indigo-600 text-white hover:bg-indigo-700 transition-colors duration-300"
