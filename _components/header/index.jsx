@@ -1,11 +1,16 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { CiSearch } from "react-icons/ci";
-import { FaUser } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { mobileNavItems } from "@/config/nav";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { CiSearch } from 'react-icons/ci';
+import { FaUser } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { mobileNavItems } from '@/config/nav';
+import {
+  RegisterLink,
+  LoginLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
+import { Button } from '@/components/ui/button';
 
 // Custom hooks
 const useScrollEffect = () => {
@@ -13,26 +18,26 @@ const useScrollEffect = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return isScrolled;
 };
 
 const useActiveTab = () => {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState('home');
   const pathname = usePathname();
 
   useEffect(() => {
     const tabMap = {
-      "/": "home",
-      "/search": "search",
-      "/products": "products",
-      "/cart": "cart",
-      "/account": "account",
+      '/': 'home',
+      '/search': 'search',
+      '/products': 'products',
+      '/cart': 'cart',
+      '/account': 'account',
     };
-    setActiveTab(tabMap[pathname] || "home");
+    setActiveTab(tabMap[pathname] || 'home');
   }, [pathname]);
 
   return [activeTab, setActiveTab];
@@ -61,8 +66,8 @@ const SearchBar = ({
   <div
     className={`${
       isMobile
-        ? "fixed top-0 left-0 right-0 bg-white shadow-lg z-50 p-2"
-        : "hidden md:flex items-center space-x-4 w-full max-w-lg"
+        ? 'fixed top-0 left-0 right-0 bg-white shadow-lg z-50 p-2'
+        : 'hidden md:flex items-center space-x-4 w-full max-w-lg'
     }`}
   >
     <div className="relative w-full max-w-xl mx-auto">
@@ -98,11 +103,11 @@ const MobileNavButton = ({ icon: Icon, label, isActive, onClick }) => (
     <div className="flex flex-col items-center">
       <Icon
         size={24}
-        className={isActive ? "text-blue-500" : "text-gray-600"}
+        className={isActive ? 'text-blue-500' : 'text-gray-600'}
       />
       <span
         className={`text-xs mt-1 ${
-          isActive ? "text-blue-500" : "text-gray-600"
+          isActive ? 'text-blue-500' : 'text-gray-600'
         }`}
       >
         {label}
@@ -113,7 +118,7 @@ const MobileNavButton = ({ icon: Icon, label, isActive, onClick }) => (
 
 // Main Header component
 const Header = ({ navItems, isSearch }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const router = useRouter();
   const isScrolled = useScrollEffect();
@@ -127,27 +132,27 @@ const Header = ({ navItems, isSearch }) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") handleSearch();
+    if (event.key === 'Enter') handleSearch();
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === "search") {
+    if (tab === 'search') {
       setShowMobileSearch(true);
     } else {
       setShowMobileSearch(false);
-      router.push(tab === "home" ? "/" : `/${tab}`);
+      router.push(tab === 'home' ? '/' : `/${tab}`);
     }
   };
 
   useEffect(() => {
     if (showMobileSearch) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     };
   }, [showMobileSearch]);
 
@@ -175,6 +180,9 @@ const Header = ({ navItems, isSearch }) => {
                 </span>
               </Link>
             ))}
+            <Button>
+              <RegisterLink /> Login
+            </Button>
           </nav>
         </div>
       </header>
@@ -195,8 +203,8 @@ const Header = ({ navItems, isSearch }) => {
           <MobileNavButton
             icon={FaUser}
             label="Sign In"
-            isActive={activeTab === "account"}
-            onClick={() => router.push("/sign-in")}
+            isActive={activeTab === 'account'}
+            onClick={() => router.push('/sign-in')}
           />
         </div>
       </nav>
