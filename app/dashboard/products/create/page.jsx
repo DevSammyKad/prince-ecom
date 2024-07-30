@@ -41,13 +41,11 @@ import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { productSchema } from '@/lib/zodSchemas';
 import { useFormState } from 'react-dom';
-import { useFormStatus } from 'react-dom';
 
 import { categories } from '@/lib/categories';
+import SubmitButton from '@/app/components/dashboard/SubmitButton';
 
 const ProductCreateRoute = () => {
-  const { pending } = useFormStatus();
-
   const [images, setImages] = useState([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
   const [form, fields] = useForm({
@@ -147,7 +145,7 @@ const ProductCreateRoute = () => {
                 alt="Product image"
                 className="aspect-square w-full rounded-md object-cover"
                 height="300"
-                src="/placeholder.jpg"
+                src={Image[0] || '/placeholder.jpg'}
                 width="300"
               />
               <div className="grid grid-cols-3 gap-2">
@@ -400,15 +398,8 @@ const ProductCreateRoute = () => {
           </CardContent>
         </Card>
       </div>
-      {pending ? (
-        <Button disabled>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin " /> Product Creating
-        </Button>
-      ) : (
-        <Button variant="default" size="lg" type="submit" className="my-5">
-          Create Product
-        </Button>
-      )}
+
+      <SubmitButton />
     </form>
   );
 };

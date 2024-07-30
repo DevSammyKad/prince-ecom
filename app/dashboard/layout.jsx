@@ -72,6 +72,7 @@ export default async function DashboardLayout({ children }) {
             <DropdownMenuLabel>
               {user.family_name || 'My Account'}
             </DropdownMenuLabel>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>

@@ -82,9 +82,9 @@ const tailwindConfig = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        "infinite-scroll": {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-100%)" },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
         },
         'accordion-down': {
           from: { height: '0' },
@@ -97,10 +97,10 @@ const tailwindConfig = {
       },
       animation: {
         scroll:
-          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-        "infinite-scroll": "infinite-scroll 30s linear infinite",
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+          'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+        'infinite-scroll': 'infinite-scroll 30s linear infinite',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
@@ -108,12 +108,14 @@ const tailwindConfig = {
 };
 
 function addVariablesForColors({ addBase, theme }) {
-  let allColors = flattenColorPalette(theme("colors"));
+  let allColors = flattenColorPalette(theme('colors'));
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
   addBase({
-    ":root": newVars,
+    ':root': newVars,
   });
 }
+
+module.exports = withUt(tailwindConfig);
