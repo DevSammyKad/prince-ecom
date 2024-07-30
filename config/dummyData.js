@@ -2,10 +2,8 @@ export const products = [
   {
     id: 1,
     name: "Earthen Bottle",
-    href: "#",
     price: "₹150",
     description: "A beautiful, handcrafted earthen bottle for your beverages.",
-    rating: 4.5,
     features: ["Handmade", "Eco-friendly", "Durable"],
     imageSrc: [
       "https://mitticool.com/wp-content/uploads/2018/11/Earthen-Clay-Water-Bottle-1-ltr.jpg",
@@ -16,6 +14,7 @@ export const products = [
     ],
     imageAlt: "Earthen bottle",
     isTrending: false,
+    isFeatured: true,
     category: [{ name: "kids" }, { name: "household" }],
     stock: 100,
     brand: "EarthenWare",
