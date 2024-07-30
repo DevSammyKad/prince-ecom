@@ -1,16 +1,19 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { CiSearch } from 'react-icons/ci';
-import { FaUser } from 'react-icons/fa';
-import { IoClose } from 'react-icons/io5';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { mobileNavItems } from '@/config/nav';
+"use client";
+import React, { useState, useEffect } from "react";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { mobileNavItems } from "@/config/nav";
 import {
-  RegisterLink,
   LoginLink,
-} from '@kinde-oss/kinde-auth-nextjs/components';
-import { Button } from '@/components/ui/button';
+  RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { Button } from "@/components/ui/button";
+import { SearchBar } from "./components/SearchBar";
+import { MobileNavButton } from "./components/MobileNavButton";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { LuShoppingCart, LuUser2 } from "react-icons/lu";
+import { CiUser } from "react-icons/ci";
 
 // Custom hooks
 const useScrollEffect = () => {
@@ -18,111 +21,39 @@ const useScrollEffect = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return isScrolled;
 };
 
 const useActiveTab = () => {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState("home");
   const pathname = usePathname();
 
   useEffect(() => {
     const tabMap = {
-      '/': 'home',
-      '/search': 'search',
-      '/products': 'products',
-      '/cart': 'cart',
-      '/account': 'account',
+      "/": "home",
+      "/search": "search",
+      "/products": "products",
+      "/cart": "cart",
+      "/account": "account",
     };
-    setActiveTab(tabMap[pathname] || 'home');
+    setActiveTab(tabMap[pathname] || "home");
   }, [pathname]);
 
   return [activeTab, setActiveTab];
 };
 
-// Component for logo
-const Logo = () => (
-  <Link href="/" className="flex items-center space-x-2">
-    <img
-      src="/Bajaj-Logo.png"
-      alt="logo"
-      className="h-10 w-14 md:h-10 md:w-16"
-    />
-  </Link>
-);
-
-// SearchBar component
-const SearchBar = ({
-  searchQuery,
-  setSearchQuery,
-  handleSearch,
-  handleKeyPress,
-  isMobile,
-  closeSearch,
-}) => (
-  <div
-    className={`${
-      isMobile
-        ? 'fixed top-0 left-0 right-0 bg-white shadow-lg z-50 p-2'
-        : 'hidden md:flex items-center space-x-4 w-full max-w-lg'
-    }`}
-  >
-    <div className="relative w-full max-w-xl mx-auto">
-      <input
-        type="text"
-        placeholder="Search products..."
-        className="w-full border-2 border-gray-300 focus:border-blue-500 text-black bg-gray-100 rounded-full py-2 pl-8 pr-12 transition-all duration-100 focus:outline-none"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyPress={handleKeyPress}
-      />
-      <button
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-500 transition-colors duration-300"
-        onClick={handleSearch}
-      >
-        <CiSearch size={24} />
-      </button>
-      {isMobile && (
-        <button
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-500 transition-colors duration-300"
-          onClick={closeSearch}
-        >
-          <IoClose size={20} />
-        </button>
-      )}
-    </div>
-  </div>
-);
-
-// MobileNavButton component
-const MobileNavButton = ({ icon: Icon, label, isActive, onClick }) => (
-  <button onClick={onClick} className="focus:outline-none">
-    <div className="flex flex-col items-center">
-      <Icon
-        size={24}
-        className={isActive ? 'text-blue-500' : 'text-gray-600'}
-      />
-      <span
-        className={`text-xs mt-1 ${
-          isActive ? 'text-blue-500' : 'text-gray-600'
-        }`}
-      >
-        {label}
-      </span>
-    </div>
-  </button>
-);
-
 // Main Header component
 const Header = ({ navItems, isSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const router = useRouter();
   const isScrolled = useScrollEffect();
   const [activeTab, setActiveTab] = useActiveTab();
+  const { isAuthenticated } = useKindeBrowserClient();
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -132,37 +63,37 @@ const Header = ({ navItems, isSearch }) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') handleSearch();
+    if (event.key === "Enter") handleSearch();
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === 'search') {
+    if (tab === "search") {
       setShowMobileSearch(true);
     } else {
       setShowMobileSearch(false);
-      router.push(tab === 'home' ? '/' : `/${tab}`);
+      router.push(tab === "home" ? "/" : `/${tab}`);
     }
   };
 
   useEffect(() => {
-    if (showMobileSearch) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = showMobileSearch ? "hidden" : "unset";
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [showMobileSearch]);
 
   return (
     <div className="font-sans">
-      <header
-        className={`bg-white text-gray-800 shadow-lg fixed top-0 w-full z-50 transition-all duration-300 p-2`}
-      >
+      <header className="bg-white text-gray-800 shadow-lg fixed top-0 w-full z-50 transition-all duration-300 p-2">
         <div className="container mx-auto flex justify-center md:justify-between items-center px-2">
-          <Logo />
+          <Link href="/" className="flex items-center space-x-2">
+            <img
+              src="/Bajaj-Logo.png"
+              alt="logo"
+              className="h-10 w-14 md:h-10 md:w-16"
+            />
+          </Link>
           {isSearch && (
             <SearchBar
               searchQuery={searchQuery}
@@ -173,16 +104,26 @@ const Header = ({ navItems, isSearch }) => {
             />
           )}
           <nav className="hidden md:flex items-center space-x-6">
-            {navItems.map((item, index) => (
-              <Link key={index} href={item.href}>
-                <span className="text-gray-600 hover:text-blue-500 transition-colors duration-300">
-                  {item.icon}
-                </span>
-              </Link>
-            ))}
-            <Button>
-              <RegisterLink /> Login
-            </Button>
+            {isAuthenticated ? (
+              <>
+                {navItems.map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <span className="text-gray-600 hover:text-blue-500 transition-colors duration-300">
+                      {item.icon}
+                    </span>
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <>
+                <Button variant="outline">
+                  <RegisterLink>Sign Up</RegisterLink>
+                </Button>
+                <Button variant="outline">
+                  <LoginLink>Sign In</LoginLink>
+                </Button>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -199,13 +140,62 @@ const Header = ({ navItems, isSearch }) => {
               onClick={() => handleTabClick(item.id)}
             />
           ))}
-
-          <MobileNavButton
-            icon={FaUser}
-            label="Sign In"
-            isActive={activeTab === 'account'}
-            onClick={() => router.push('/sign-in')}
-          />
+          {isAuthenticated ? (
+            <>
+              <MobileNavButton
+                icon={LuShoppingCart}
+                label="Cart"
+                isActive={activeTab === "Cart"}
+                onClick={() => router.push("/cart")}
+              />
+            </>
+          ) : (
+            <>
+              <button className="focus:outline-none">
+                <div className="flex flex-col items-center">
+                  <LuShoppingCart
+                    size={24}
+                    className={
+                      activeTab === "account"
+                        ? "text-blue-500"
+                        : "text-gray-600"
+                    }
+                  />
+                  <span className={`text-xs mt-1 text-blue-500 text-gray-600`}>
+                    <LoginLink>Cart</LoginLink>
+                  </span>
+                </div>
+              </button>
+            </>
+          )}
+          {isAuthenticated ? (
+            <>
+              <MobileNavButton
+                icon={LuUser2}
+                label="account"
+                isActive={activeTab === "account"}
+                onClick={() => router.push("/account")}
+              />
+            </>
+          ) : (
+            <>
+              <button className="focus:outline-none">
+                <div className="flex flex-col items-center">
+                  <LuUser2
+                    size={24}
+                    className={
+                      activeTab === "account"
+                        ? "text-blue-500"
+                        : "text-gray-600"
+                    }
+                  />
+                  <span className={`text-xs mt-1 text-blue-500 text-gray-600`}>
+                    <LoginLink>LogIn</LoginLink>
+                  </span>
+                </div>
+              </button>
+            </>
+          )}
         </div>
       </nav>
 
