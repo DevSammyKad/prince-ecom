@@ -17,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import {
   Table,
@@ -80,7 +81,7 @@ export default async function ProductsPage() {
                 </TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Price</TableHead>
+                <TableHead>Sale Price</TableHead>
                 <TableHead className="hidden md:table-cell">
                   Total Sales
                 </TableHead>
@@ -106,9 +107,27 @@ export default async function ProductsPage() {
                   </TableCell>
                   <TableCell className="font-medium">{item.name}</TableCell>
                   <TableCell>
-                    <Badge variant="outline">{item.status}</Badge>
+                    <Badge
+                      variant="outline"
+                      className={`${
+                        item.status === 'published'
+                          ? 'bg-green-50 text-green-500'
+                          : ''
+                      } ${
+                        item.status === 'active'
+                          ? ' bg-blue-50 text-blue-500'
+                          : ''
+                      }${
+                        item.status === 'draft'
+                          ? ' bg-gray-50 text-gray-500'
+                          : ''
+                      }
+                      `}
+                    >
+                      {item.status.toUpperCase()}
+                    </Badge>
                   </TableCell>
-                  <TableCell>₹{item.price}</TableCell>
+                  <TableCell>₹{item.salePrice}</TableCell>
                   <TableCell className="hidden md:table-cell">25</TableCell>
                   <TableCell className="hidden md:table-cell">
                     {new Intl.DateTimeFormat('en-US').format(item.createdAt)}
@@ -127,8 +146,17 @@ export default async function ProductsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                          <Link href={`/dashboard/products/${item.id}`}>
+                            Edit
+                          </Link>{' '}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Link href={`/dashboard/products/${item.id}/delete`}>
+                            Delete
+                          </Link>
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -176,7 +204,8 @@ export default async function ProductsPage() {
         </CardContent>
         <CardFooter>
           <div className="text-xs text-muted-foreground">
-            Showing <strong>1-10</strong> of <strong>32</strong> products
+            Showing <strong>1-10</strong> of <strong>{data.length}</strong>{' '}
+            products
           </div>
         </CardFooter>
       </Card>

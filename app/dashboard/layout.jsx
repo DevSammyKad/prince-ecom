@@ -70,13 +70,11 @@ export default async function DashboardLayout({ children }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>
-              {user.family_name || 'My Account'}
+              {user?.family_name || 'My Account'}
             </DropdownMenuLabel>
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
+
             <DropdownMenuItem>Subscription</DropdownMenuItem>
             <DropdownMenuItem asChild>
               <LogoutLink>Logout</LogoutLink>

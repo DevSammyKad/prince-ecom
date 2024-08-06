@@ -25,9 +25,25 @@ model Product {
   images      String[]
   category    Category
   price       Float
+  salePrice   Float
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
   isFeatured  Boolean       @default(false)
+}
+
+model Banner {
+  id          String   @id @default(uuid())
+  title       String
+  imageString String
+  createdAt   DateTime @default(now())
+}
+
+model WishList {
+  id        String   @id
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
 }
 
 enum ProductStatus {

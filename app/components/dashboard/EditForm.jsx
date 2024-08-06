@@ -1,6 +1,15 @@
 'use client';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
 
-import React, { useState } from 'react';
+import { ChevronLeft, Upload, XIcon, PlusCircle } from 'lucide-react';
+
 import {
   Card,
   CardContent,
@@ -17,38 +26,27 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, Upload, XIcon, PlusCircle, Loader2 } from 'lucide-react';
-import Image from 'next/image';
 import {
-  Select,
   SelectContent,
+  Select,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { UploadDropzone } from '@/lib/uploadthing';
-
-import { createProduct } from '@/app/actions';
-import { useForm } from '@conform-to/react';
-import { parseWithZod } from '@conform-to/zod';
-import { productSchema } from '@/lib/zodSchemas';
-import { useFormState } from 'react-dom';
 
 import { categories } from '@/lib/categories';
+import { useState } from 'react';
+import { useFormState } from 'react-dom';
+import { editProduct } from '@/app/actions';
+import { parseWithZod } from '@conform-to/zod';
+import { productSchema } from '@/lib/zodSchemas';
+import { useForm } from '@conform-to/react';
+import { UploadDropzone } from '@/lib/uploadthing';
 import SubmitButton from '@/app/components/dashboard/SubmitButton';
-import { toast } from 'sonner';
 
-const ProductCreateRoute = () => {
-  const [images, setImages] = useState([]);
-  const [lastResult, action] = useFormState(createProduct, undefined);
+export default function EditForm({ data }) {
+  const [images, setImages] = useState(data.images);
+  const [lastResult, action] = useFormState(editProduct, undefined);
   const [form, fields] = useForm({
     // Sync the result of last submission
     lastResult,
@@ -66,21 +64,23 @@ const ProductCreateRoute = () => {
   const handleDeleteImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
   };
+
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
+      <input type="hidden" name="productId" value={data.id} />
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" asChild>
           <Link href="/dashboard/products">
             <ChevronLeft />
           </Link>
         </Button>
-        <h1>New Product</h1>
+        <h1>Edit Product</h1>
       </div>
       <div className="grid md:grid-cols-3 grid-cols-2 gap-5 my-5  ">
         <Card className="col-span-2">
           <CardHeader>
             <CardTitle>Product Details</CardTitle>
-            <CardDescription>Write product details here</CardDescription>
+            <CardDescription>Update product details here</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-6">
@@ -90,7 +90,7 @@ const ProductCreateRoute = () => {
                   id="name"
                   key={fields.name.key}
                   name={fields.name.name}
-                  defaultValue={fields.name.initialValue}
+                  defaultValue={data.name}
                   type="text"
                   className="w-full"
                   placeholder="Gamer Gear Pro Controller"
@@ -103,55 +103,58 @@ const ProductCreateRoute = () => {
                   id="description"
                   key={fields.description.key}
                   name={fields.description.name}
-                  defaultValue={fields.description.initialValue}
+                  defaultValue={data.description}
                   className="min-h-32"
-                  placeholder="write your product description here"
+                  placeholder="Write your product description here"
                 />
                 <p className="text-red-500 text-sm">
                   {fields.description.errors}
                 </p>
               </div>
-              <div className="flex items-start gap-5">
-                <div className="grid gap-3 ">
+              <div className="flex items-center gap-5 mb-5">
+                <div className="grid gap-3">
+                  <Label>Sale Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    placeholder="Sale Price"
+                    key={fields.salePrice.key}
+                    name={fields.salePrice.name}
+                    defaultValue={data.salePrice}
+                  />
+                  <p className="text-red-500 text-sm">
+                    {fields.salePrice.errors}
+                  </p>
+                </div>
+                <div className="grid gap-3">
                   <Label>Price</Label>
                   <Input
                     id="price"
                     type="number"
                     placeholder="Actual Price"
-                    name={fields.price.name}
                     key={fields.price.key}
-                    defaultValue={fields.price.initialValue}
+                    name={fields.price.name}
+                    defaultValue={data.price}
                   />
-                  <p className="text-red-500 text-sm">{fields.name.errors}</p>
-                </div>
-                <div className="gird gap-3">
-                  <Label>Sale Price</Label>
-                  <Input
-                    id="salePrice"
-                    type="number"
-                    placeholder="Sale Price"
-                    name={fields.salePrice.name}
-                    key={fields.salePrice.name}
-                    defaultValue={fields.salePrice.initialValue}
-                  />
-                  <p className="text-sm text-red-500">
-                    {fields.salePrice.errors}
-                  </p>
+                  <p className="text-red-500 text-sm">{fields.price.errors}</p>
                 </div>
               </div>
+
               <div className="grid  gap-3">
                 <Label>Feature Product</Label>
                 <Switch
                   key={fields.isFeatured.key}
                   name={fields.isFeatured.name}
-                  defaultValue={fields.isFeatured.initialValue}
-                  defaultChecked={fields.remember.initialValue === 'true'}
+                  defaultChecked={data.isFeatured}
                 />
-                <p className="text-red-500 text-sm">{fields.name.errors}</p>
+                <p className="text-red-500 text-sm">
+                  {fields.isFeatured.errors}
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
+
         <Card className="overflow-hidden">
           <CardHeader>
             <CardTitle>Product Images</CardTitle>
@@ -162,27 +165,27 @@ const ProductCreateRoute = () => {
               <Image
                 alt="Product image"
                 className="aspect-square w-full rounded-md object-cover"
-                height={300}
-                src={Image[0] || '/placeholder.jpg'}
-                width={300}
+                height="300"
+                src={images[0] || '/placeholder.jpg'}
+                width="300"
               />
               <div className="grid grid-cols-3 gap-2">
                 <button>
                   <Image
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
-                    height={84}
-                    src={Image[1] || '/placeholder.jpg'}
-                    width={84}
+                    height="84"
+                    src={images[1] || '/placeholder.jpg'}
+                    width="84"
                   />
                 </button>
                 <button>
                   <Image
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
-                    height={84}
-                    src={Image[2] || '/placeholder.jpg'}
-                    width={84}
+                    height="84"
+                    src={images[2] || '/placeholder.jpg'}
+                    width="84"
                   />
                 </button>
                 <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
@@ -219,7 +222,7 @@ const ProductCreateRoute = () => {
                 <Button
                   onClick={() => handleDeleteImage(index)}
                   size="icon"
-                  className="absolute -right-3  -top-3  bg-red-500 rounded-lg"
+                  className="absolute -right-3 w-7 h-7  -top-3  bg-red-500 rounded-lg"
                 >
                   <XIcon className="h-3 w-3" />
                 </Button>
@@ -360,7 +363,7 @@ const ProductCreateRoute = () => {
                 <Select
                   key={fields.status.key}
                   name={fields.status.name}
-                  defaultValue={fields.status.initialValue}
+                  defaultValue={data.status}
                 >
                   <SelectTrigger id="status" aria-label="Select status">
                     <SelectValue
@@ -381,7 +384,7 @@ const ProductCreateRoute = () => {
                 <Select
                   key={fields.category.key}
                   name={fields.category.name}
-                  defaultValue={fields.category.initialValue}
+                  defaultValue={data.category}
                 >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="Select category" />
@@ -417,9 +420,7 @@ const ProductCreateRoute = () => {
         </Card>
       </div>
 
-      <SubmitButton text={'Create'} />
+      <SubmitButton text={data.id ? 'Edit' : 'Create'} />
     </form>
   );
-};
-
-export default ProductCreateRoute;
+}
