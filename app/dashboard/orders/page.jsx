@@ -35,7 +35,7 @@ const OrdersPage = () => {
           </TableHeader>
           <TableRow>
             <TableCell>
-              <div className="font-medium">Liam Johnson</div>
+              <div className="font-medium">PrathmeshSutar</div>
               <div className="hidden text-sm text-muted-foreground md:inline">
                 liam@example.com
               </div>
@@ -51,9 +51,9 @@ const OrdersPage = () => {
           </TableRow>
           <TableRow>
             <TableCell>
-              <div className="font-medium">Olivia Smith</div>
+              <div className="font-medium">Smith Sutar</div>
               <div className="hidden text-sm text-muted-foreground md:inline">
-                olivia@example.com
+                Sutar@example.com
               </div>
             </TableCell>
             <TableCell className="">Refund</TableCell>

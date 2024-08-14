@@ -111,7 +111,19 @@ export default function EditForm({ data }) {
                   {fields.description.errors}
                 </p>
               </div>
-              <div className="flex items-center gap-5 mb-5">
+              <div className="flex items-center gap-5 ">
+                <div className="grid gap-3">
+                  <Label>Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    placeholder="Actual Price"
+                    key={fields.price.key}
+                    name={fields.price.name}
+                    defaultValue={data.price}
+                  />
+                  <p className="text-red-500 text-sm">{fields.price.errors}</p>
+                </div>
                 <div className="grid gap-3">
                   <Label>Sale Price</Label>
                   <Input
@@ -126,18 +138,6 @@ export default function EditForm({ data }) {
                     {fields.salePrice.errors}
                   </p>
                 </div>
-                <div className="grid gap-3">
-                  <Label>Price</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    placeholder="Actual Price"
-                    key={fields.price.key}
-                    name={fields.price.name}
-                    defaultValue={data.price}
-                  />
-                  <p className="text-red-500 text-sm">{fields.price.errors}</p>
-                </div>
               </div>
 
               <div className="grid  gap-3">
@@ -145,6 +145,7 @@ export default function EditForm({ data }) {
                 <Switch
                   key={fields.isFeatured.key}
                   name={fields.isFeatured.name}
+                  defaultValue={data.isFeatured}
                   defaultChecked={data.isFeatured}
                 />
                 <p className="text-red-500 text-sm">

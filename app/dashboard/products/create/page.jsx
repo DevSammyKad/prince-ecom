@@ -145,7 +145,7 @@ const ProductCreateRoute = () => {
                   key={fields.isFeatured.key}
                   name={fields.isFeatured.name}
                   defaultValue={fields.isFeatured.initialValue}
-                  defaultChecked={fields.remember.initialValue === 'true'}
+                  defaultChecked={fields.initialValue === 'true'}
                 />
                 <p className="text-red-500 text-sm">{fields.name.errors}</p>
               </div>

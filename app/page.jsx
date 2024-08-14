@@ -11,6 +11,9 @@ import { products } from '@/config/dummyData';
 import { RegisterLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Button } from '@/components/ui/button';
 
+import BuyProduct from './components/razorpay/BuyProduct';
+import PaymentButton from './components/PaymentButton';
+
 export default function Home() {
   // const kidsProducts = products.filter((product) => {
   //   return product.category.some((category) => category.name === 'kids');
@@ -26,6 +29,7 @@ export default function Home() {
         <RegisterLink>Register</RegisterLink>
       </Button>
       <Category />
+      <BuyProduct />
 
       <Occasion />
       {/* <Product title={'Kids Special'} products={kidsProducts} />
