@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardFooter,
 } from '@/components/ui/card';
+import Link from 'next/link';
 
 export default function DeleteRoute({ params }) {
   return (
@@ -21,9 +22,11 @@ export default function DeleteRoute({ params }) {
             product and all its data.
           </CardDescription>
           <CardFooter className="justify-end flex gap-3 items-center">
-            <Button variant="outline" className="">
-              Cancel
-            </Button>
+            <Link href={'/dashboard/products'}>
+              <Button variant="outline" className="">
+                Cancel
+              </Button>
+            </Link>
             <form action={deleteProduct}>
               <input type="hidden" name="productId" value={params.id} />
               <SubmitButton text={'Delete'} variant="destructive" />

@@ -47,7 +47,7 @@ export default async function ProductsPage() {
     <div>
       <nav className="flex justify-between flex-1 items-start gap-4 p-4 my-4 sm:px-6 sm:py-0 md:gap-8">
         <div>
-          <Tabs defaultValue="all" className="w-[400px]">
+          <Tabs defaultValue="active" className="w-[400px]">
             <TabsList>
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="active">Active</TabsTrigger>
