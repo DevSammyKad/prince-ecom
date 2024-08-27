@@ -7,22 +7,12 @@ export const AddressesSection = () => {
   const [addresses, setAddresses] = useState([
     {
       id: 1,
-      type: "Shipping",
+      type: "Home",
       name: "Abc",
       street: "Warje Malwadi",
       city: "Pune",
       state: "MH",
       zip: "411058",
-      country: "India",
-    },
-    {
-      id: 2,
-      type: "Billing",
-      name: "Xyz",
-      street: "Kothrud",
-      city: "Pune",
-      state: "MH",
-      zip: "411038",
       country: "India",
     },
   ]);

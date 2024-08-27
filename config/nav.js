@@ -1,8 +1,7 @@
-import { LuShoppingCart } from "react-icons/lu";
-import { BiBookmarkHeart } from "react-icons/bi";
-import { FaHome, FaShoppingCart, FaUser } from "react-icons/fa";
-import { CiSearch } from "react-icons/ci";
-import { BsBox } from "react-icons/bs";
+import { LuShoppingCart, LuUser2 } from "react-icons/lu";
+import { BiBookmarkHeart, BiGridAlt, BiSearchAlt2 } from "react-icons/bi";
+
+import { RiHome4Line } from "react-icons/ri";
 
 export const mainNav = [
   {
@@ -18,15 +17,14 @@ export const mainNav = [
   {
     title: "account",
     href: "/account",
-    icon: <FaUser size={28} className="hidden md:block" />,
+    icon: <LuUser2 size={28} className="hidden md:block" />,
   },
 ];
 
 export const mobileNavItems = [
-  { id: "home", icon: FaHome, label: "Home" },
-  { id: "search", icon: CiSearch, label: "Search" },
-  { id: "products", icon: BsBox, label: "Product" },
-  { id: "cart", icon: FaShoppingCart, label: "Cart" },
+  { id: "home", icon: RiHome4Line, label: "Home" },
+  { id: "search", icon: BiSearchAlt2, label: "Search" },
+  { id: "products", icon: BiGridAlt, label: "Product" },
 ];
 
 export const items = [

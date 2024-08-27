@@ -15,26 +15,20 @@ import BuyProduct from './components/razorpay/BuyProduct';
 import PaymentButton from './components/PaymentButton';
 
 export default function Home() {
-  // const kidsProducts = products.filter((product) => {
-  //   return product.category.some((category) => category.name === 'kids');
-  // });
-  // const trendingProducts = products.filter((product) => product.isTrending);
+  const kidsProducts = products.filter((product) => {
+    return product.category.some((category) => category.name === 'kids');
+  });
+  const trendingProducts = products.filter((product) => product.isTrending);
   return (
     <div>
       {/* <StickyHeader /> */}
       <Header navItems={mainNav} isSearch={true} />
-
       <Banner />
-      <Button asChild>
-        <RegisterLink>Register</RegisterLink>
-      </Button>
       <Category />
-      <BuyProduct />
-
       <Occasion />
-      {/* <Product title={'Kids Special'} products={kidsProducts} />
+      <Product title={'Kids Special'} products={kidsProducts} />
       <Product title={'Trending Now'} products={trendingProducts} />
-      <Product title={'All Products'} products={products} /> */}
+      <Product title={'All Products'} products={products} />
       <DealOfTheDay />
       {/* <Banner2 /> */}
       <Brands />

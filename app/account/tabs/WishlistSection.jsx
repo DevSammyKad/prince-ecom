@@ -9,13 +9,6 @@ export const WishlistSection = () => {
       price: "1129.99",
       image: "/headphones.jpg",
     },
-    { id: 2, name: "Smartwatch", price: "1999.99", image: "/smartwatch.jpg" },
-    {
-      id: 3,
-      name: "Laptop Backpack",
-      price: "1559.99",
-      image: "/backpack.jpg",
-    },
   ];
 
   return (

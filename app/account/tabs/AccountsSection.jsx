@@ -3,20 +3,15 @@ import { ProfileField } from "../components/ProfileField";
 
 export const AccountSection = ({ user }) => {
   const [accountInfo, setAccountInfo] = useState({
-    email: "abc@gmail.com",
-    name: "abc",
-    phone: "123",
+    email: "",
+    name: "",
   });
 
   useEffect(() => {
     if (user) {
       setAccountInfo({
-        email: "abc@GiMailShirt.com",
-        name: "abc",
-        phone: "123456789",
-        // email: user.primaryEmailAddress.emailAddress,
-        // name: user.fullName,
-        // phone: user.phoneNumbers?.[0]?.phoneNumber,
+        email: user?.email,
+        name: user?.given_name + " " + user?.family_name,
       });
     }
   }, [user]);
