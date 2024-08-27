@@ -139,3 +139,13 @@
     transform: translateX(-100%);
   }
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

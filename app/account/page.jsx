@@ -1,7 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { User, Package, Heart, Home, CreditCard, Menu, X } from "lucide-react";
+import {
+  User,
+  Package,
+  Heart,
+  Home,
+  CreditCard,
+  Menu,
+  X,
+  LogOut,
+} from "lucide-react";
 import { mainNav } from "@/config/nav";
 import Header from "@/_components/header";
 import { AccountSection } from "./tabs/AccountsSection";
@@ -9,10 +18,14 @@ import { OrdersSection } from "./tabs/OrdersSection";
 import { WishlistSection } from "./tabs/WishlistSection";
 import { AddressesSection } from "./tabs/AddressSection";
 import { PaymentSection } from "./tabs/PaymentSection";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState("account");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user } = useKindeBrowserClient();
+  console.log(user);
 
   const tabs = [
     { id: "account", icon: User, label: "Account" },
@@ -32,8 +45,7 @@ export default function Page() {
               {/* Mobile sidebar toggle */}
               <div className="md:hidden p-4 flex justify-between items-center bg-blue-600">
                 <h2 className="text-xl font-semibold text-white">
-                  {/* {user?.firstName}'s */}
-                  Profile
+                  {user?.given_name}'s Profile
                 </h2>
                 <button
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -49,10 +61,10 @@ export default function Page() {
 
               {/* Sidebar */}
               <aside
-                className={`w-3/5 md:w-64 m-1 mb-16 rounded-md bg-blue-600 text-white p-6 
+                className={`w-3/5 md:w-64 m-1  rounded-md bg-blue-600 text-white p-6 
                 ${
                   isSidebarOpen
-                    ? "fixed inset-0 z-50 transition-all duration-300 ease-in-out"
+                    ? "fixed inset-0 z-50 transition-all mb-16 duration-300 ease-in-out"
                     : "hidden"
                 } 
                 md:relative md:block transition-all duration-300 ease-in-out`}
@@ -60,16 +72,18 @@ export default function Page() {
                 <div className="mb-8 text-center">
                   <div className="relative inline-block">
                     <img
-                      src={""}
+                      src={user?.picture}
                       alt="Profile Picture"
                       width={80}
                       height={50}
                       className="rounded-full mx-auto mb-4 border-4 border-white shadow-lg"
                     />
                   </div>
-                  <h2 className="text-xl font-semibold">abc</h2>
+                  <h2 className="text-xl font-semibold">
+                    {user?.given_name + " " + user?.family_name}
+                  </h2>
                   <p className="text-sm text-blue-200 truncate">
-                    abc@gmail.com
+                    {user?.email}
                   </p>
                 </div>
                 <nav className="space-y-2">
@@ -90,6 +104,12 @@ export default function Page() {
                       {tab.label}
                     </button>
                   ))}
+                  <button
+                    className={`flex items-center w-full py-3 px-4 rounded-lg transition-all duration-200 bg-blue-600 hover:bg-blue-700 text-white `}
+                  >
+                    <LogOut className="mr-3 h-5 w-5" />
+                    <LogoutLink>Logout</LogoutLink>
+                  </button>
                 </nav>
               </aside>
 
@@ -101,11 +121,13 @@ export default function Page() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {activeTab === "account" && <AccountSection />}
-                  {activeTab === "orders" && <OrdersSection />}
-                  {activeTab === "wishlist" && <WishlistSection />}
-                  {activeTab === "addresses" && <AddressesSection />}
-                  {activeTab === "payment" && <PaymentSection />}
+                  {activeTab === "account" && <AccountSection user={user} />}
+                  {activeTab === "orders" && <OrdersSection user={user} />}
+                  {activeTab === "wishlist" && <WishlistSection user={user} />}
+                  {activeTab === "addresses" && (
+                    <AddressesSection user={user} />
+                  )}
+                  {activeTab === "payment" && <PaymentSection user={user} />}
                 </motion.div>
               </main>
             </div>
