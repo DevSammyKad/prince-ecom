@@ -25,7 +25,7 @@ import Link from 'next/link';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, Upload, XIcon, PlusCircle, Loader2 } from 'lucide-react';
+import { ChevronLeft, Upload, XIcon, PlusCircle } from 'lucide-react';
 import Image from 'next/image';
 import {
   Select,
@@ -52,7 +52,6 @@ const ProductCreateRoute = () => {
   const [form, fields] = useForm({
     // Sync the result of last submission
     lastResult,
-
     // Reuse the validation logic on the client
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
@@ -97,6 +96,20 @@ const ProductCreateRoute = () => {
                 />
                 <p className="text-red-500 text-sm">{fields.name.errors}</p>
               </div>
+              <div className="grid gap-6">
+                <Label htmlFor="shortDescription">Short Description</Label>
+                <Textarea
+                  id="shortDescription"
+                  key={fields.shortDescription.key}
+                  name={fields.shortDescription.name}
+                  defaultValue={fields.shortDescription.initialValue}
+                  className="min-h-20"
+                  placeholder="Write your product Short description here"
+                />
+                <p className="text-red-500 text-sm">
+                  {fields.shortDescription.errors}
+                </p>
+              </div>
               <div className="grid gap-3">
                 <Label htmlFor="description">Description</Label>
                 <Textarea
@@ -105,7 +118,7 @@ const ProductCreateRoute = () => {
                   name={fields.description.name}
                   defaultValue={fields.description.initialValue}
                   className="min-h-32"
-                  placeholder="write your product description here"
+                  placeholder="Write your product description here"
                 />
                 <p className="text-red-500 text-sm">
                   {fields.description.errors}
@@ -139,7 +152,7 @@ const ProductCreateRoute = () => {
                   </p>
                 </div>
               </div>
-              <div className="grid  gap-3">
+              <div className="grid gap-3">
                 <Label>Feature Product</Label>
                 <Switch
                   key={fields.isFeatured.key}
@@ -152,18 +165,18 @@ const ProductCreateRoute = () => {
             </div>
           </CardContent>
         </Card>
-        <Card className="overflow-hidden">
+        <Card className="col-span-2 md:col-span-1 overflow-hidden">
           <CardHeader>
             <CardTitle>Product Images</CardTitle>
             <CardDescription>Upload AtLeast 1 image</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-2">
+            <div className="grid gap-2 w-[500px]">
               <Image
                 alt="Product image"
-                className="aspect-square w-full rounded-md object-cover"
+                className="aspect-square  rounded-md object-cover w-[80%]"
                 height={300}
-                src={Image[0] || '/placeholder.jpg'}
+                src={images[0] || '/placeholder.jpg'}
                 width={300}
               />
               <div className="grid grid-cols-3 gap-2">
@@ -172,7 +185,7 @@ const ProductCreateRoute = () => {
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
                     height={84}
-                    src={Image[1] || '/placeholder.jpg'}
+                    src={images[1] || '/placeholder.jpg'}
                     width={84}
                   />
                 </button>
@@ -181,7 +194,7 @@ const ProductCreateRoute = () => {
                     alt="Product image"
                     className="aspect-square w-full rounded-md object-cover"
                     height={84}
-                    src={Image[2] || '/placeholder.jpg'}
+                    src={images[2] || '/placeholder.jpg'}
                     width={84}
                   />
                 </button>
@@ -241,8 +254,9 @@ const ProductCreateRoute = () => {
         )}
         <p className="text-sm text-red-500">{fields.images.errors}</p>
       </div>
+
       <div className="grid md:grid-cols-3 grid-cols-2 gap-5 my-5">
-        <Card className="col-span-2  cursor-pointer">
+        <Card className="col-span-2 cursor-pointer">
           <CardHeader>
             <CardTitle>Stock</CardTitle>
             <CardDescription>
@@ -348,8 +362,7 @@ const ProductCreateRoute = () => {
             </Button>
           </CardFooter>
         </Card>
-
-        <Card>
+        <Card className="col-span-2 md:col-span-1">
           <CardHeader>
             <CardTitle>Additional Details</CardTitle>
           </CardHeader>
@@ -417,7 +430,33 @@ const ProductCreateRoute = () => {
         </Card>
       </div>
 
-      <SubmitButton text={'Create'} />
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-5 my-5">
+        <Card>
+          <CardHeader>
+            <CardTitle>Product Review (Admin)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor="comment">Comment</Label>
+                <Textarea
+                  id="comment"
+                  key={fields.comment.key}
+                  name={fields.comment.name}
+                  defaultValue={fields.comment.initialValue}
+                  className="min-h-16"
+                  placeholder="Write your product review here"
+                />
+                <p className="text-red-500 text-sm">{fields.comment.errors}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div>
+        <SubmitButton className="" text={'Create'} />
+      </div>
     </form>
   );
 };

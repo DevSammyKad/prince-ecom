@@ -27,7 +27,7 @@ export default async function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="flex w-full flex-col  mx-auto px-4 sm:px-6 lg-px-8">
+    <div className="flex w-full flex-col mx-auto px-4 sm:px-6 lg-px-8">
       <header className="sticky top-0 flex bg-white mb-5 z-10 h-16 items-center justify-between gap-4 border-b">
         <nav className="hidden md:flex md:flex-row md:items-center md:gap-5 lg:gap-6 md:text-sm">
           <DashboardNavigation />

@@ -47,7 +47,7 @@ export default async function ProductsPage() {
     <div>
       <nav className="flex justify-between flex-1 items-start gap-4 p-4 my-4 sm:px-6 sm:py-0 md:gap-8">
         <div>
-          <Tabs defaultValue="active" className="w-[400px]">
+          <Tabs defaultValue="active" className="">
             <TabsList>
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="active">Active</TabsTrigger>
@@ -105,7 +105,9 @@ export default async function ProductsPage() {
                       width={64}
                     />
                   </TableCell>
-                  <TableCell className="font-medium">{item.name}</TableCell>
+                  <TableCell className="font-medium truncate max-w-[150px] ">
+                    {item.name}
+                  </TableCell>
                   <TableCell>
                     <Badge
                       variant="outline"

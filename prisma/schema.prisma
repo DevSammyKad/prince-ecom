@@ -18,17 +18,18 @@ model User {
 }
 
 model Product {
-  id          String        @id @default(uuid())
-  name        String
-  description String
-  status      ProductStatus
-  images      String[]
-  category    Category
-  price       Float
-  salePrice   Float
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
-  isFeatured  Boolean       @default(false)
+  id               String        @id @default(uuid())
+  name             String
+  shortDescription String
+  description      String
+  status           ProductStatus
+  images           String[]
+  category         Category
+  price            Float
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now())
+  isFeatured       Boolean       @default(false)
+  salePrice        Float
 }
 
 model Banner {

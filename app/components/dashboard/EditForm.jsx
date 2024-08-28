@@ -97,6 +97,20 @@ export default function EditForm({ data }) {
                 />
                 <p className="text-red-500 text-sm">{fields.name.errors}</p>
               </div>
+              <div className="grid gap-6">
+                <Label htmlFor="shortDescription">Short Description</Label>
+                <Textarea
+                  id="shortDescription"
+                  key={fields.shortDescription.key}
+                  name={fields.shortDescription.name}
+                  defaultValue={data.shortDescription}
+                  className="min-h-20"
+                  placeholder="write your product description here"
+                />
+                <p className="text-red-500 text-sm">
+                  {fields.shortDescription.errors}
+                </p>
+              </div>
               <div className="grid gap-3">
                 <Label htmlFor="description">Description</Label>
                 <Textarea
